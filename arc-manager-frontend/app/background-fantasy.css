@@ -1,0 +1,48 @@
+.background-fantasy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+
+  /* direzione inversa: dall'alto sinistra al basso destra */
+  background: repeating-linear-gradient(
+    135deg, /* direzione invertita rispetto a prima */
+    rgba(139, 0, 0, 0.35) 0px,        /* rosso scuro */
+    rgba(139, 0, 0, 0.35) 200px,
+    rgba(255, 255, 255, 0) 200px,     /* spazio bianco */
+    rgba(255, 255, 255, 0) 400px,
+
+    rgba(255, 215, 0, 0.35) 400px,    /* giallo oro */
+    rgba(255, 215, 0, 0.35) 600px,
+    rgba(255, 255, 255, 0) 600px,
+    rgba(255, 255, 255, 0) 800px,
+
+    rgba(0, 128, 0, 0.35) 800px,      /* verde */
+    rgba(0, 128, 0, 0.35) 1000px,
+    rgba(255, 255, 255, 0) 1000px,
+    rgba(255, 255, 255, 0) 1200px,
+
+    rgba(64, 224, 208, 0.35) 1200px,   /* acqua */
+    rgba(64, 224, 208, 0.35) 1400px,
+    rgba(255, 255, 255, 0) 1400px,
+    rgba(255, 255, 255, 0) 1600px
+  );
+
+  background-size: 800% 800%;
+  filter: blur(3px) brightness(0.9);
+
+  /* movimento molto lento da sinistra verso destra */
+  animation: moveGradient 3000s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}

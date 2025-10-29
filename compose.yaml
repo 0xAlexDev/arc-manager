@@ -1,0 +1,49 @@
+services:
+  arc-manager-backend:
+    build: ./arc-manager-backend
+    image: springboot-image
+    container_name: arc-manager-backend
+    platform: linux/x86_64
+    working_dir: /application 
+    ports:
+      - "16900:8088"
+    restart: always
+    networks:
+      - arc-manager-net
+    environment:
+      - DB_REF=jdbc:postgresql://postgresdb:5432/arc_manager
+      - DB_USERNAME=arc_manager_adm
+      - DB_PASSWORD=password
+    depends_on:
+      - postgresdb
+
+  arc-manager-frontend:
+    build:
+      context: ./arc-manager-frontend
+      args:
+        NEXT_PUBLIC_SERVER_URL: "http://localhost:16900"
+    image: nginx-react-image
+    container_name: arc-manager-frontend
+    restart: always
+    ports:
+      - "17900:3000"
+    networks:
+      - arc-manager-net
+    
+  postgresdb:
+    image: postgres:15
+    container_name: arc-manager-postgres
+    restart: always
+    ports:
+      - "15432:5432"
+    networks:
+      - arc-manager-net
+    environment:
+      POSTGRES_DB: arc_manager
+      POSTGRES_USER: arc_manager_adm
+      POSTGRES_PASSWORD: password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+
+networks:
+  arc-manager-net:
+    driver: bridge
